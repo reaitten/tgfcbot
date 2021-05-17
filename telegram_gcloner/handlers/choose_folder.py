@@ -56,7 +56,7 @@ def chosen_folder(update, context):
         gd = GoogleDrive(update.effective_user.id)
     except Exception as e:
         context.bot.send_message(chat_id=update.effective_user.id,
-                                 text='Please make sure the SA archive has been uploaded and the collection folder has been configured.\n'
+                                 text='please make sure the SA archive has been uploaded and the collection folder has been configured.\n'
                                       '<code>{}</code>'.format(html.escape(str(e))),
                                  parse_mode=ParseMode.HTML)
         return
@@ -103,7 +103,7 @@ def choose_folder(update, context):
         gd = GoogleDrive(update.effective_user.id)
     except Exception as e:
         context.bot.send_message(chat_id=update.effective_user.id,
-                                 text='Please make sure the SA archive has been uploaded and the collection folder has been configured.\n'
+                                 text='please make sure the SA archive has been uploaded and the collection folder has been configured.\n'
                                       '<code>{}</code>'.format(html.escape(str(e))),
                                  parse_mode=ParseMode.HTML)
         return
@@ -117,7 +117,7 @@ def choose_folder(update, context):
             folders = gd.get_drives()
             current_folder_id = ''
             context.bot.send_message(chat_id=update.effective_user.id,
-                                     text='Error：\n<code>{}</code>'.format(html.escape(str(e))),
+                                     text='error：\n<code>{}</code>'.format(html.escape(str(e))),
                                      parse_mode=ParseMode.HTML)
 
     callback_query_prefix = 'choose_folder'
@@ -155,7 +155,7 @@ def choose_folder(update, context):
                     folders = gd.get_drives()
                     current_folder_id = ''
                     context.bot.send_message(chat_id=update.effective_user.id,
-                                             text='Error：\n<code>{}</code>'.format(html.escape(str(e))),
+                                             text='error：\n<code>{}</code>'.format(html.escape(str(e))),
                                              parse_mode=ParseMode.HTML)
                 context.user_data[udkey_folders_cache] = copy.deepcopy(folders)
                 if not folders:
@@ -171,7 +171,7 @@ def choose_folder(update, context):
                 folders = gd.get_drives()
                 context.user_data[udkey_folders_cache] = copy.deepcopy(folders)
             if not folders:
-                folders = {'#': 'If you have no shared drives, you must get one before you can use this.'}
+                folders = {'#': 'if you have no shared drives, you must get one before you can use this.'}
         else:
             alert_users(context, update.effective_user, 'invalid query data', query.data)
             query.answer(text='Yo-he!', show_alert=True)
@@ -235,7 +235,7 @@ def set_folders(update, context):
     query = update.callback_query
     page = 1
     if not query:
-        rsp = update.message.reply_text('Getting shared drives...')
+        rsp = update.message.reply_text('getting shared drives...')
         rsp.done.wait(timeout=60)
         message_id = rsp.result().message_id
     else:
@@ -263,12 +263,12 @@ def set_folders(update, context):
         inline_keyboard_drive_ids = []
         folder_ids_len = 0
     if folder_ids_len < max_folders:
-        inline_keyboard_drive_ids.insert(0, [InlineKeyboardButton('Add favorite folder', callback_data=callback_query_prefix)])
-    inline_keyboard_drive_ids.append([InlineKeyboardButton('Done', callback_data='cancel')])
+        inline_keyboard_drive_ids.insert(0, [InlineKeyboardButton('add favorite folder', callback_data=callback_query_prefix)])
+    inline_keyboard_drive_ids.append([InlineKeyboardButton('done', callback_data='cancel')])
 
     context.bot.edit_message_text(chat_id=update.effective_chat.id,
                                   message_id=message_id,
-                                  text='Total {}/{} Destination Folders：'.format(
+                                  text='total {}/{} destination folders：'.format(
                                       folder_ids_len,
                                       max_folders,
                                   ),

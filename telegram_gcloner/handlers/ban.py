@@ -44,9 +44,9 @@ def ban(update: Update, context: CallbackContext):
     if tasks:
         for t in tasks:
             t.kill()
-            logger.debug('Task {} was stopped due to user {} is banned.'.format(t.ident, user_id))
+            logger.debug('task {} was stopped due to user {} is banned.'.format(t.ident, user_id))
             break
-    update.message.reply_text('Added to the blacklist.')
+    update.message.reply_text('added to the blacklist.')
     logger.info('{} is banned.'.format(user_id))
     return
 

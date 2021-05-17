@@ -119,7 +119,7 @@ def main():
     load_handlers(updater.dispatcher)
 
     updater.start_polling()
-    updater.bot.send_message(chat_id=config.USER_IDS[0], text='Hey sexy, Wanna clone some TBs?')
+    updater.bot.send_message(chat_id=config.USER_IDS[0], text='hey, wanna start cloning?')
     updater.idle()
 
 
@@ -206,8 +206,8 @@ def error(update, context):
 
     context_error = str(context.error)
     # lets put this in a "well" formatted text
-    text = f"Hey.\n The error <code>{html.escape(context_error)}</code> happened{str(payload)}. " \
-           f"The full traceback:\n\n<code>{html.escape(str(trace))}" \
+    text = f"hey.\n the error <code>{html.escape(context_error)}</code> happened{str(payload)}. " \
+           f"the full traceback:\n\n<code>{html.escape(str(trace))}" \
            f"</code>"
 
     # ignore message is not modified error from telegram

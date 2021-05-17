@@ -56,7 +56,7 @@ def get_inline_keyboard_pagination_data(callback_query_prefix, page_data, page_d
             inline_keyboard_row = []
             for j in range(len(page_data[i])):
                 is_chosen = any(k == page_data[i][j]['data'] for k in page_data_chosen or [])
-                text = '{}{}'.format('✅ ' if is_chosen else '',
+                text = '{}{}'.format('✔ ' if is_chosen else '',
                                      page_data[i][j]['text'])
                 if page_data[i][j]['data'] != '#':
                     data = '{},{}'.format(
@@ -69,7 +69,7 @@ def get_inline_keyboard_pagination_data(callback_query_prefix, page_data, page_d
             inline_keyboard.append(inline_keyboard_row)
         else:
             is_chosen = any(k == page_data[i]['data'] for k in page_data_chosen or [])
-            text = '{}{}'.format('✅ ' if is_chosen else '',
+            text = '{}{}'.format('✔ ' if is_chosen else '',
                                  page_data[i]['text'])
             if page_data[i]['data'] != '#':
                 data = '{},{}'.format(

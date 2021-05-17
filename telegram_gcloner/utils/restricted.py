@@ -19,7 +19,7 @@ def restricted(func):
         # access control. comment out one or the other as you wish. otherwise you can use any of the following examples.
         # if user_id in ban_list:
         if user_id in ban_list or user_id not in config.USER_IDS:
-            logger.info('Unauthorized access denied for {} {}.'
+            logger.info('unauthorized access denied for {} {}.'
                         .format(update.effective_user.full_name, user_id))
             return
         return func(update, context, *args, **kwargs)
@@ -35,10 +35,10 @@ def restricted_private(func):
         chat_id = update.effective_chat.id
         ban_list = context.bot_data.get('ban', [])
         if user_id in ban_list or chat_id < 0:
-            logger.info('Unauthorized access denied for private messages {} {}.'
+            logger.info('unauthorized access denied for private messages {} {}.'
                         .format(update.effective_user.full_name, user_id))
             if chat_id < 0:
-                rsp = update.message.reply_text('Private chat only!')
+                rsp = update.message.reply_text('private chat only!')
                 rsp.done.wait(timeout=60)
                 message_id = rsp.result().message_id
                 context.job_queue.run_once(callback_delete_message, config.TIMER_TO_DELETE_MESSAGE,
@@ -59,7 +59,7 @@ def restricted_private_and_group(func):
         chat_id = update.effective_chat.id
         ban_list = context.bot_data.get('ban', [])
         if user_id in ban_list or (chat_id < 0 or chat_id not in config.GROUP_IDS):
-            logger.info('Unauthorized access denied for private and group messages{} {}.'
+            logger.info('unauthorized access denied for private and group messages{} {}.'
                         .format(update.effective_user.full_name, user_id))
             return
         return func(update, context, *args, **kwargs)
@@ -75,7 +75,7 @@ def restricted_group_only(func):
         chat_id = update.effective_chat.id
         ban_list = context.bot_data.get('ban', [])
         if user_id not in config.USER_IDS and (user_id in ban_list or chat_id > 0 or chat_id not in config.GROUP_IDS):
-            logger.info('Unauthorized access denied for group only messages {} {}.'
+            logger.info('unauthorized access denied for group only messages {} {}.'
                         .format(update.effective_user.full_name, user_id))
             return
         return func(update, context, *args, **kwargs)
@@ -104,7 +104,7 @@ def restricted_group_and_its_members_in_private(func):
                         allow = True
                         break
         if allow is False:
-            logger.info('Unauthorized access denied for group and its members messages{} {}.'
+            logger.info('unauthorized access denied for group and its members messages{} {}.'
                         .format(update.effective_user.full_name, user_id))
             return
         return func(update, context, *args, **kwargs)
@@ -118,7 +118,7 @@ def restricted_user_ids(func):
             return
         user_id = update.effective_user.id
         if user_id not in config.USER_IDS:
-            logger.info('Unauthorized access denied for {} {}.'
+            logger.info('unauthorized access denied for {} {}.'
                         .format(update.effective_user.full_name, user_id))
             return
         return func(update, context, *args, **kwargs)
@@ -133,7 +133,7 @@ def restricted_admin(func):
         user_id = update.effective_user.id
         chat_id = update.effective_chat.id
         if user_id != config.USER_IDS[0]:
-            logger.info("Unauthorized admin access denied for {} {}.".format(update.effective_user.full_name, user_id))
+            logger.info("unauthorized admin access denied for {} {}.".format(update.effective_user.full_name, user_id))
             return
         if chat_id < 0:
             return
